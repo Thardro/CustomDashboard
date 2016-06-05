@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FRC 3042 Dashboard - Competition</title>
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="js/jquery-2.2.4.js"></script>
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="/networktables/networktables.js"></script>
+    <script src="js/ui.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper blue darken-2">
+                <a href="#" class="brand-logo center">FRC 3042 Dashboard</a>
+                <a class="brand-logo right">Robot: Unknown state</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li class="active"><a href="competition.html">Competition</a></li>
+                    <li><a href="autonomous.html">Autonomous Planner</a></li>
+                    <li><a href="tuning.html">Tuning</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="row">
+        <div class="col s3 cards-container">
+            <div class="card valign-wrapper" id="camera-card">
+                <div class="card-image valign center-block">
+                    <img src="10.30.42.11&t=" width='' id='driverCamera' onload='//setTimeout(function() {src = src.substring(0, (src.lastIndexOf("t=")+2))+(new Date()).getTime()}, 33)' onerror='//setTimeout(function() {src = src.substring(0, (src.lastIndexOf("t=")+2))+(new Date()).getTime()}, 5000)' alt='' />
+                    <div class="row">
+                        <div class="col s12 center">
+                            <div class="preloader-wrapper big active driverCameraLoading" id="camera-load">
+                                <div class="spinner-layer spinner-blue-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s6 card-container">
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <table class="highlight bordered">
+                            <tbody>
+                                <tr>
+                                    <td>Potentiometer</td>
+                                    <td>180</td>
+                                </tr>
+                                <tr>
+                                    <td>Gyro</td>
+                                    <td>90</td>
+                                </tr>
+                                <tr>
+                                    <td>Left Shooter Speed</td>
+                                    <td>3000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <table class="highlight bordered">
+                            <tbody>
+                                <tr>
+                                    <td>Right Shooter Speed</td>
+                                    <td>3300</td>
+                                </tr>
+                                <tr>
+                                    <td>Left Drive Encoder</td>
+                                    <td>15000</td>
+                                </tr>
+                                <tr>
+                                    <td>Right Drive Encoder</td>
+                                    <td>13000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <svg id="robotDiagram" width="635" height="268">
+                            <circle cx="86" cy="225" r="18" stroke="black" stroke-width="4" fill="white" />
+                            <circle cx="146" cy="225" r="37" stroke="black" stroke-width="4" fill="white" />
+                            <circle cx="225" cy="228" r="37" stroke="black" stroke-width="4" fill="white" />
+                            <circle cx="304" cy="225" r="37" stroke="black" stroke-width="4" fill="white" />
+                            <circle cx="364" cy="225" r="18" stroke="black" stroke-width="4" fill="white" />
+                            <rect class="snout" x="340" y="150" width="145" height="25" stroke="black" stroke-width="4" fill="white" />
+                            <rect x="340" y="150" width="25" height="50" stroke="black" stroke-width="4" fill="white" />
+                            <rect class="snout" x="380" y="200" width="125" height="18" stroke="black" stroke-width="4" fill="white" />
+                            <rect class="snout" x="385" y="120" width="75" height="130" stroke="black" stroke-width="4" fill="white" />
+                            <rect x="50" y="170" rx="5" ry="5" width="350" height="50" stroke="black" stroke-width="4" fill="white" />
+                        </svg>
+                    </div>
+                    <div class="card-action">
+                        <form action="#">
+                            <p class="range-field">
+                                <input id="snoutAngle" type="range" value="0" min="0" max="135" />
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s3 card-container">
+            <div class="col s10 offset-s2">
+                <div class="card blue darken-2">
+                    <div class="card-content">
+                        <h1 class="white-text center-align" id="timer">2:15</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Autonomous Selector</span>
+                    </div>
+                    <div class="card-action">
+                        <div class="input-field">
+                            <select>
+                                <option value="" disabled selected>Choose a defense</option>
+                                <optgroup label="Group A">
+                                    <option value="3">Cheval de Frise</option>
+                                    <option value="4">Portcullis</option>
+                                </optgroup>
+                                <optgroup label="Group B">
+                                    <option value="5">Moat</option>
+                                    <option value="6">Ramparts</option>
+                                </optgroup>
+                                <optgroup label="Group D">
+                                    <option value="1">Rock Wall</option>
+                                    <option value="2">Rough Terrain</option>
+                                </optgroup>
+                            </select>
+                            <label>Defense Chooser</label>
+                        </div>
+                        <div class="input-field">
+                            <select>
+                                <option value="" disabled selected>Choose an position</option>
+                                <option value="0">Position 0 (No Shot)</option>
+                                <option value="1">Position 1</option>
+                                <option value="2">Position 2</option>
+                                <option value="3">Position 3</option>
+                                <option value="4">Position 4</option>
+                                <option value="5">Position 5</option>
+                            </select>
+                            <label>Position Chooser</label>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>  
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+
+.cards-container {
+  column-break-inside: avoid;
+}
+
+.card-image {
+  position: relative;
+}
+
+.btn {
+  color: 'blue darken-2';
+}
+
+/* Class for when element is above threshold */
+  .pin-top {
+    position: relative;
+  }
+
+  /* Class for when element is below threshold */
+  .pin-bottom {
+    position: relative;
+  }
+
+  /* Class for when element is pinned */
+  .pinned {
+    position: fixed !important;
+  }
+
+.snout {
+    transform: rotate(-45deg);
+    transform-origin: 352.5px 162.5px;
+}
+
+.toc-element {
+    font-size: 1.5em;
+}
+
+.defense-slot-1 {
+  position: absolute;
+  z-index: 1000;
+  left: 195px;
+  top: 3px;
+}
+
+.defense-slot-2 {
+  position: absolute;
+  z-index: 1000;
+  left: 195px;
+  top: 106px;
+  width: 90px;
+  height: 90px;
+}
+
+.defense-slot-3 {
+  position: absolute;
+  z-index: 1000;
+  left: 195px;
+  top: 212px;
+  width: 90px;
+  height: 90px;
+}
+
+.defense-slot-4 {
+  position: absolute;
+  z-index: 1000;
+  left: 195px;
+  top: 318px;
+  width: 90px;
+  height: 90px;
+}
+
+.defense-slot-5 {
+  position: absolute;
+  z-index: 1000;
+  left: 195px;
+  top: 424px;
+  width: 90px;
+  height: 90px;
+}
+
+#camera-card {
+    width: 360px;
+    height: 480px;
+}

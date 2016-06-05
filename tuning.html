@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FRC 3042 Dashboard - Tuning</title>
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="js/plotly-latest.min.js"></script>
+    <script src="js/jquery-2.2.4.js"></script>
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    
+    <script src="/networktables/networktables.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/tuning.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper blue darken-2">
+                <a href="#" class="brand-logo center">FRC 3042 Dashboard</a>
+                <a class="brand-logo right">Robot: Unknown state</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="competition.html">Competition</a></li>
+                    <li><a href="autonomous.html">Autonomous Planner</a></li>
+                    <li class="active"><a href="tuning.html">Tuning</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="row section scrollspy" id="drivetrain">
+        <div class="row">
+            <div class="col s3">
+                <div class="col s10 offset-s1">
+                    <h3 class="left">Drivetrain</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col s10 cards-container">
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Left Encoder</span>
+                        <p>Position: </p>
+                        <div class="divider"></div>
+                        <div id="left-position" style="width:500px;height:350px;"></div>
+                        <p>Velocity: </p>
+                        <div class="divider"></div>
+                        <div id="left-velocity" style="width:500px;height:350px;"></div>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="lDriveP" type="text">
+                                    <label for="lDriveP">P Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="lDriveI" type="text">
+                                    <label for="lDriveI">I Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="lDriveD" type="text">
+                                    <label for="lDriveD">D Value</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Right Encoder</span>
+                        <p>Position: </p>
+                        <div class="divider"></div>
+                        <div id="right-position" style="width:500px;height:350px;"></div>
+                        <p>Velocity: </p>
+                        <div class="divider"></div>
+                        <div id="right-velocity" style="width:500px;height:350px;"></div>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="rDriveP" type="text">
+                                    <label for="rDriveP">P Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="rDriveI" type="text">
+                                    <label for="rDriveI">I Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="rDriveD" type="text">
+                                    <label for="rDriveD">D Value</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Heading</span>
+                        <p>Position: </p>
+                        <div class="divider"></div>
+                        <div id="heading-position" style="width:500px;height:350px;"></div>
+                        <p>Velocity: </p>
+                        <div class="divider"></div>
+                        <div id="heading-velocity" style="width:500px;height:350px;"></div>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="hDriveP" type="text">
+                                    <label for="hDriveP">P Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="hDriveI" type="text">
+                                    <label for="hDriveI">I Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="hDriveD" type="text">
+                                    <label for="hDriveD">D Value</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s2">
+            <div class="toc-wrapper">
+                <ul class="section table-of-contents">
+                    <li><a class="toc-element" href="#drivetrain">Drivetrain</a></li>
+                    <li><a class="toc-element" href="#snout">Snout</a></li>
+                    <li><a class="toc-element" href="#shooter">Shooter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row section scrollspy" id="snout">
+        <div class="row">
+            <div class="col s3">
+                <div class="col s10 offset-s1">
+                    <h3 class="left">Snout</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col s10 cards-container">
+
+        </div>
+    </div>
+    
+    <div class="row section scrollspy" id="shooter">
+        <div class="row">
+            <div class="col s3">
+                <div class="col s10 offset-s1">
+                    <h3 class="left">Shooter</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col s10 cards-container">
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Left Encoder</span>
+                        <p>Position: </p>
+                        <div class="divider"></div>
+                        <div id="left-shoot-position" style="width:500px;height:350px;"></div>
+                        <p>Velocity: </p>
+                        <div class="divider"></div>
+                        <div id="left-shoot-velocity" style="width:500px;height:350px;"></div>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="lShootP" type="text">
+                                    <label for="lShootP">P Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="lShootI" type="text">
+                                    <label for="lShootI">I Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="lShootD" type="text">
+                                    <label for="lShootD">D Value</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Right Encoder</span>
+                        <p>Position: </p>
+                        <div class="divider"></div>
+                        <div id="right-shoot-position" style="width:500px;height:350px;"></div>
+                        <p>Velocity: </p>
+                        <div class="divider"></div>
+                        <div id="right-shoot-velocity" style="width:500px;height:350px;"></div>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="rShootP" type="text">
+                                    <label for="rShootP">P Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="rShootI" type="text">
+                                    <label for="rShootI">I Value</label>
+                                </div>
+                            </div>
+                            <div class="col s4">
+                                <div class="input-field">
+                                    <input id="rShootD" type="text">
+                                    <label for="rShootD">D Value</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

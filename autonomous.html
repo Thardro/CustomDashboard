@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>FRC 3042 Dashboard - Autonomous Planner</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <script src="js/jquery-2.2.4.js"></script>
+    <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+    <script src="/networktables/networktables.js"></script>
+    <script src="js/autonomous.js"></script>
+    <script src="js/ui.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper blue darken-2">
+                <a href="#" class="brand-logo center">FRC 3042 Dashboard</a>
+                <a class="brand-logo right">Robot: Unknown state</a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="competition.html">Competition</a></li>
+                    <li class="active"><a href="autonomous.html">Autonomous Planner</a></li>
+                    <li><a href="tuning.html">Tuning</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="row">
+        <div class="tabs-wrapper col s2">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header">Autonomous 1</div>
+                    <div class="collapsible-body"><p>Placeholder text</p></div>
+                </li>
+                <li>
+                    <div class="collapsible-header">Autonomous 2</div>
+                    <div class="collapsible-body"><p>Placeholder text</p></div>
+                </li>
+                <li>
+                    <div class="collapsible-header">Autonomous 3</div>
+                    <div class="collapsible-body"><p>Placeholder text</p></div>
+                </li>
+            </ul>
+        </div>
+        <div class="card col s2">
+        </div>
+        <div class="col s10 cards-container" id="page-container">
+            <div class="row" id="naming">
+                <h4>1. Name autonomous routine</h4>
+                <div class="card col s10">
+                    <div class="card-content">
+                        <span class="card-title">Name and Description</span>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="name" type="text">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="description" class="materialize-textarea"></textarea>
+                                <label for="description">Description (Optional)</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="alliance-slection">
+                <h4>2. Select an alliance</h4>
+                <div class="card col s10">
+                    <div class="card-image">
+                        <img src="images/field.png">
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="col s6">
+                                <div class="input-field center">
+                                    <input name="alliance" type="radio" id="red-alliance" value="red" />
+                                    <label for="red-alliance">Red Alliance</label>
+                                </div>
+                            </div>
+                            <div class="col s6">
+                                <div class="input-field center">
+                                    <input name="alliance" type="radio" id="blue-alliance" value="blue" />
+                                    <label for="blue-alliance">Blue Alliance</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="right">
+                                    <a class="waves-effect waves btn blue darken-2" id="alliance-button" href="#field-setup">continue</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="field-setup">
+                <h4>3. Layout the defenses</h4>
+                <div class="card col s7">
+                    <div class="card-image">
+                        <img src="images/blue_alliance.png" class="alliance-picture">
+                        <div class="defense-slot-1">
+                            <img src="images/low_bar.png">
+                        </div>
+                        <div class="defense-slot-2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <img src="" class="defense-slot-2-img">
+                        </div>
+                        <div class="defense-slot-3" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <img src="" class="defense-slot-3-img">
+                        </div>
+                        <div class="defense-slot-4" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <img src="" class="defense-slot-4-img">
+                        </div>
+                        <div class="defense-slot-5" ondrop="drop(event)" ondragover="allowDrop(event)">
+                            <img src="" class="defense-slot-5-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="card col s3">
+                    <div class="card-content row">
+                        <div class="row">
+                            <span class="card-title">Defenses</span>
+                            <div class="divider"></div>
+                        </div>
+                        <div class="col s6">
+                            <img src="images/portcullis.png" id="portcullis" draggable="true" ondragstart="drag(event)">
+                        </div>
+                        <div class="col s6">
+                            <img src="images/cheval_de_frise.png" id="cheval-de-frise" draggable="true" ondragstart="drag(event)">
+                        </div>
+                        <div class="col s6">
+                            <img src="images/moat.png" id="moat" draggable="true" ondragstart="drag(event)">
+                        </div>
+                        <div class="col s6">
+                            <img src="images/ramparts.png" id="ramparts" draggable="true" ondragstart="drag(event)">
+                        </div>
+                        <div class="col s6">
+                            <img src="images/drawbridge.png" id="drawbridge" draggable="true" ondragstart="drag(event)">
+                        </div>
+                        <div class="col s6">
+                            <img src="images/sally_port.png" id="sally-port" draggable="true" ondragstart="drag(event)">
+                        </div>
+                        <div class="col s6">
+                            <img src="images/rock_wall.png" id="rock-wall" draggable="true" ondragstart="drag(event)">
+                        </div>
+                        <div class="col s6">
+                            <img src="images/rough_terrain.png" id="rough-terrain" draggable="true" ondragstart="drag(event)">
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <a class="waves-effect waves btn blue darken-2" id="field-button" href="#start-point">continue</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="start-point">
+                <h4>4. Select starting point/configuration</h4>
+                <div class="card col s7">
+                    <div class="card-image">
+                        <img src="images/blue_alliance.png" class="alliance-picture">
+                        <div class="defense-slot-1">
+                            <img src="images/low_bar.png">
+                        </div>
+                        <div class="defense-slot-2">
+                            <img src="" class="defense-slot-2-img">
+                        </div>
+                        <div class="defense-slot-3">
+                            <img src="" class="defense-slot-3-img">
+                        </div>
+                        <div class="defense-slot-4">
+                            <img src="" class="defense-slot-4-img">
+                        </div>
+                        <div class="defense-slot-5">
+                            <img src="" class="defense-slot-5-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="card col s3">
+                    <div class="card-content">
+                        <span class="card-title">Starting Configuration</span>
+                    </div>
+                    <div class="card-action">
+                        <div class="row">
+                            <div class="input-field">
+                                <input name="start-config" type="radio" id="standard" value="0" />
+                                <label for="standard">Standard</label>
+                            </div>
+                            <div class="input-field">
+                                <input name="start-config" type="radio" id="blocker" value="1" />
+                                <label for="blocker">Blocker</label>
+                            </div>
+                        </div>
+                        <a class="waves-effect waves btn blue darken-2" id="startconfig-button" href="#path-planner">continue</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="path-planner">
+                <h4>5. Plan robot path</h4>
+                <div class="card col s7">
+                    <div class="card-image">
+                        <img src="images/blue_alliance.png" class="alliance-picture">
+                        <div class="defense-slot-1">
+                            <img src="images/low_bar.png">
+                        </div>
+                        <div class="defense-slot-2">
+                            <img src="" class="defense-slot-2-img">
+                        </div>
+                        <div class="defense-slot-3">
+                            <img src="" class="defense-slot-3-img">
+                        </div>
+                        <div class="defense-slot-4">
+                            <img src="" class="defense-slot-4-img">
+                        </div>
+                        <div class="defense-slot-5">
+                            <img src="" class="defense-slot-5-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="action-planner">
+                <h4>6. Plan robot actions</h4>
+                <div class="card col s7">
+                    <div class="card-image">
+                        <img src="images/blue_alliance.png" class="alliance-picture">
+                        <div class="defense-slot-1">
+                            <img src="images/low_bar.png">
+                        </div>
+                        <div class="defense-slot-2">
+                            <img src="" class="defense-slot-2-img">
+                        </div>
+                        <div class="defense-slot-3">
+                            <img src="" class="defense-slot-3-img">
+                        </div>
+                        <div class="defense-slot-4">
+                            <img src="" class="defense-slot-4-img">
+                        </div>
+                        <div class="defense-slot-5">
+                            <img src="" class="defense-slot-5-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large blue darken-2">
+            <i class="large material-icons">add</i>
+        </a>
+        <ul>
+        </ul>
+    </div>
+</body>
+
+</html>
